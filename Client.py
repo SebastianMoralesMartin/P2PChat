@@ -7,6 +7,5 @@ while True:
     message = input('Mensaje: ')
     client.send(bytes(message+'\n', 'utf-8'))
     print(name,':', message)
-    from_server = client.recv(4096)
 client.close()
 print(from_server)
