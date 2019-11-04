@@ -4,6 +4,7 @@ from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
 
+print("haber si jala")
 
 def receive():
     """Handles receiving of messages."""

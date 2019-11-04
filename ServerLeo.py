@@ -2,7 +2,7 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 
-
+print ("Haber si jala")
 def accept_incoming_connections():
     """Sets up handling for incoming clients."""
     while True:
