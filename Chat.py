@@ -1,4 +1,14 @@
 #encoding: UTF-8
+import socket
+import select
+import sys
 
-for n in range(1, 9999999):
-    print(n)
+
+def main():
+    print("test print")
+
+main()
+
+
+if __name__ == "__main__":
+    print("")
