@@ -2,10 +2,9 @@ import socket
 import threading
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+serv.bind(('0.0.0.0', 8080))
+serv.listen(1)
 while True:
-    serv.bind(('0.0.0.0', 8080))
-    serv.listen(5)
     conn, addr = serv.accept()
     from_client1 = []
     while True:
@@ -13,7 +12,7 @@ while True:
         if not data:
             break
         from_client1.append(str(data))
-        print(from_client1[-1])
-        serv.sendall(bytes("I am SERVER\n", 'utf-8'))
+        print(conn.getsockname() ,from_client1[-1])
+        #serv.send(bytes("I am SERVER\n", 'utf-8'))
     conn.close()
     print('client disconnected')
