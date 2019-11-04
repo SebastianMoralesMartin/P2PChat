@@ -38,11 +38,8 @@ def main():
         def run(self):
             send_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             send_socket.connect((self.address, self.port))
-
             while True:
-
                 message = input("You: ")
-
                 if message.lower() == "quit":
                     break
                 else:
