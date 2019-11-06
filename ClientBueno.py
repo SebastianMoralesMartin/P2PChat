@@ -68,7 +68,7 @@ top.protocol("WM_DELETE_WINDOW", on_closing)
 HOST = input('Enter host: ')
 PORT = input('Enter port: ')
 if not PORT:
-    PORT = 33001
+    PORT = 33000
 else:
     PORT = int(PORT)
 
