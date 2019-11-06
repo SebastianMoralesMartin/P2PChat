@@ -14,7 +14,6 @@ def encryptMsg(msg):
     return criptedStr
 
 def accept_incoming_connections():
-
     while True:
         client, client_address = SERVER.accept()
         connected = ("%s:%s has connected." % client_address)
@@ -26,10 +25,9 @@ def accept_incoming_connections():
         addresses[client] = client_address
         Thread(target=handle_client, args=(client,)).start()
 
-
 def handle_client(client):
     name = client.recv(BUFSIZ).decode("utf8")
-    welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % name
+    welcome = 'Welcome! If you ever want to quit, type {quit} to exit.'
     welcome = encryptMsg(welcome)
     client.send(bytes(welcome, "utf8"))
     msg = "%s has joined the chat!" % name
@@ -40,7 +38,9 @@ def handle_client(client):
     while True:
         msg = client.recv(BUFSIZ)
         if msg != bytes("{quit}", "utf8"):
-            broadcast(msg, name + ": ")
+            added=encryptMsg(": ")
+            print(added)
+            broadcast(msg, name + added)
         else:
             client.send(bytes("{quit}", "utf8"))
             client.close()
@@ -50,8 +50,6 @@ def handle_client(client):
 
 
 def broadcast(msg, prefix=""):
-    """Broadcasts a message to all the clients."""
-
     for sock in clients:
         sock.send(bytes(prefix, "utf8") + msg)
 
