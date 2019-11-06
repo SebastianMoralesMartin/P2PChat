@@ -26,8 +26,9 @@ def encryptMsg(msg):
 
 
 def send():
-    msg = input("")
+    msg = sent_msg.get()
     criptedMsg = encryptMsg(msg)
+    sent_msg.set("")
     client.send(bytes(criptedMsg, "utf8"))
     if msg == "{quit}":
         client.close()
@@ -46,7 +47,6 @@ frame.pack()
 sent_msg = tkinter.StringVar()  # For the messages to be sent.
 sent_msg.set("Type your messages here.")
 input_field = tkinter.Entry(top, textvariable=sent_msg)
-input_field.bind("<Return>", send)
 input_field.pack()
 sendButton = tkinter.Button(top, text='Enviar', command=send)
 sendButton.pack()
