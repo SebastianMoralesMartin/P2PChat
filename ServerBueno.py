@@ -16,9 +16,7 @@ def accept_incoming_connections():
 
     while True:
         client, client_address = SERVER.accept()
-        connected = ("%s:%s has connected." % client_address)
-        connected = encryptMsg(connected)
-        print(connected)
+        print("%s:%s has connected." % client_address)
         typeName = "Type your name and press enter"
         typeName = encryptMsg(typeName)
         client.send(bytes(typeName, "utf8"))
@@ -31,7 +29,7 @@ def handle_client(client):
     welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % name
     welcome = encryptMsg(welcome)
     client.send(bytes(welcome, "utf8"))
-    msg = "%s has joined the chat!" % name
+    msg = ("%s has joined the chat!" % name)
     msg = encryptMsg(msg)
     broadcast(bytes(msg, "utf8"))
     clients[client] = name
@@ -39,7 +37,8 @@ def handle_client(client):
     while True:
         msg = client.recv(BUFSIZ)
         if msg != bytes("{quit}", "utf8"):
-            broadcast(msg, name + ": ")
+            added = encryptMsg(": ")
+            broadcast(msg, name + added)
         else:
             client.send(bytes("{quit}", "utf8"))
             client.close()
@@ -58,7 +57,7 @@ def broadcast(msg, prefix=""):
 clients = {}
 addresses = {}
 
-HOST = '192.168.56.1'
+HOST = '127.0.0.1'
 PORT = 33000
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
