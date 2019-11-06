@@ -45,7 +45,7 @@ top.title("Chat")
 frame = tkinter.Frame(top)
 frame.pack()
 sent_msg = tkinter.StringVar()  # For the messages to be sent.
-sent_msg.set("Type your messages here.")
+sent_msg.set("Write here your username then messages")
 input_field = tkinter.Entry(top, textvariable=sent_msg)
 input_field.pack()
 sendButton = tkinter.Button(top, text='Enviar', command=send)
