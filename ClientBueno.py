@@ -39,11 +39,19 @@ def on_closing(event=None):
     sent_msg.set("{quit}")
     send()
 
+#metodo para manejar teclas apretadas
+def pr(event):
+    send()
+    
 top = tkinter.Tk()
 top.title("Chat")
 
 frame = tkinter.Frame(top)
 frame.pack()
+
+frame.bind("<Return>",pr) #si se presiona Enter key, se procede a mandar mensaje
+
+
 sent_msg = tkinter.StringVar()  # For the messages to be sent.
 sent_msg.set("Write here your username then messages")
 input_field = tkinter.Entry(top, textvariable=sent_msg)
