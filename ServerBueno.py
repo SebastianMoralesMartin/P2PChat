@@ -5,7 +5,7 @@ def accept_incoming_connections():
 
     while True:
         client, client_address = SERVER.accept()
-        print("%s:%s has connected." % client_address)
+        print(client_address + ' has connected')
         client.send(bytes("Type your name and press enter", "utf8"))
         addresses[client] = client_address
         Thread(target=handle_client, args=(client,)).start()
@@ -13,7 +13,7 @@ def accept_incoming_connections():
 
 def handle_client(client):
     name = client.recv(BUFSIZ).decode("utf8")
-    welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % name
+    welcome = 'Welcome ' + name + ', type "quit" to exit'
     client.send(bytes(welcome, "utf8"))
     msg = "%s has joined the chat!" % name
     broadcast(bytes(msg, "utf8"))
@@ -27,12 +27,11 @@ def handle_client(client):
             client.send(bytes("{quit}", "utf8"))
             client.close()
             del clients[client]
-            broadcast(bytes("%s has left the chat." % name, "utf8"))
+            broadcast(bytes(name, 'has left the chat', "utf8"))
             break
 
 
 def broadcast(msg, prefix=""):
-    """Broadcasts a message to all the clients."""
 
     for sock in clients:
         sock.send(bytes(prefix, "utf8") + msg)
