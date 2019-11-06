@@ -16,7 +16,7 @@ def encryptMsg(msg):
 def accept_incoming_connections():
     while True:
         client, client_address = SERVER.accept()
-        connected = client_address + ' se ha conectado. :-)'
+        connected = client_address + ' se ha conectado.'
         connected = encryptMsg(connected)
         print(connected)
         typeName = "Ingresa tu Nickname y hax click en Enviar"
@@ -45,7 +45,7 @@ def handle_client(client):
             client.send(bytes("{quit}", "utf8"))
             client.close()
             del clients[client]
-            broadcast(bytes("%s ha salido del chat. :-(" % name, "utf8"))
+            broadcast(bytes("%s ha salido del chat." % name, "utf8"))
             break
 
 
@@ -57,7 +57,7 @@ def broadcast(msg, prefix=""):
 clients = {}
 addresses = {}
 
-HOST = input('direccion del host: ')
+HOST = '10.48.102.143'#input('direccion del host: ')
 PORT = 33000
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
