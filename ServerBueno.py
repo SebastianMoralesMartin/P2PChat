@@ -60,7 +60,7 @@ clients = {}
 addresses = {}
 
 HOST = input('direccion del host: ')
-PORT = 33001
+PORT = 33000
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 

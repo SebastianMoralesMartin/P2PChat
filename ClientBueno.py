@@ -8,7 +8,8 @@ def receive():
         try:
             msg = client.recv(BUFSIZ).decode("utf8")
             desencryptedMsg = encryptMsg(msg)
-            print(desencryptedMsg + "\n")
+            chat_box.insert(tkinter.END, desencryptedMsg)
+            #print(desencryptedMsg + "\n")
         except OSError:
             break
 
@@ -43,10 +44,16 @@ top = tkinter.Tk()
 top.title("Chat")
 
 frame = tkinter.Frame(top)
+scroll = tkinter.Scrollbar(frame)
+chat_box = tkinter.Listbox(frame, height=15, width=50, yscrollcommand=scroll.set)
+scroll.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+chat_box.pack(side=tkinter.LEFT, fill=tkinter.BOTH)
+chat_box.pack()
 frame.pack()
 sent_msg = tkinter.StringVar()  # For the messages to be sent.
-sent_msg.set("Type your messages here.")
+sent_msg.set("")
 input_field = tkinter.Entry(top, textvariable=sent_msg)
+input_field.bind("<Return>", send)
 input_field.pack()
 sendButton = tkinter.Button(top, text='Enviar', command=send)
 sendButton.pack()
@@ -60,7 +67,7 @@ top.protocol("WM_DELETE_WINDOW", on_closing)
 HOST = input('Enter host: ')
 PORT = input('Enter port: ')
 if not PORT:
-    PORT = 33001
+    PORT = 33000
 else:
     PORT = int(PORT)
 
