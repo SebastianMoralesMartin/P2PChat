@@ -27,9 +27,7 @@ def encryptMsg(msg):
 
 def send():
     msg = input("")
-
     criptedMsg = encryptMsg(msg)
-
     client.send(bytes(criptedMsg, "utf8"))
     if msg == "{quit}":
         client.close()
