@@ -26,7 +26,7 @@ def accept_incoming_connections():
 
 def handle_client(client):
     name = client.recv(BUFSIZ).decode("utf8")
-    welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % name
+    welcome = 'Welcome to the chat'
     welcome = encryptMsg(welcome)
     client.send(bytes(welcome, "utf8"))
     msg = ("%s has joined the chat!" % name)
@@ -57,7 +57,7 @@ def broadcast(msg, prefix=""):
 clients = {}
 addresses = {}
 
-HOST = '127.0.0.1'
+HOST = input('')
 PORT = 33000
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
