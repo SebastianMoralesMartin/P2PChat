@@ -1,12 +1,27 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 
+def encryptMsg(msg):
+    b = bytearray(msg, "utf-8")
+    criptedStr = ""
+    for byt in b:
+        t = int(byt)
+        key = int(bin(127), 2)
+        cripted = bin(t ^ key)
+        strCrypt = chr(int(cripted, 2))
+        criptedStr += strCrypt
+    return criptedStr
+
 def accept_incoming_connections():
 
     while True:
         client, client_address = SERVER.accept()
-        print("%s:%s has connected." % client_address)
-        client.send(bytes("Type your name and press enter", "utf8"))
+        connected = ("%s:%s has connected." % client_address)
+        connected = encryptMsg(connected)
+        print(connected)
+        typeName = "Type your name and press enter"
+        typeName = encryptMsg(typeName)
+        client.send(bytes(typeName, "utf8"))
         addresses[client] = client_address
         Thread(target=handle_client, args=(client,)).start()
 
@@ -14,8 +29,10 @@ def accept_incoming_connections():
 def handle_client(client):
     name = client.recv(BUFSIZ).decode("utf8")
     welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % name
+    welcome = encryptMsg(welcome)
     client.send(bytes(welcome, "utf8"))
     msg = "%s has joined the chat!" % name
+    msg = encryptMsg(msg)
     broadcast(bytes(msg, "utf8"))
     clients[client] = name
 
