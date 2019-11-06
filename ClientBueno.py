@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
+import tkinter
 
 def receive():
     while True:
@@ -34,24 +35,44 @@ def send():
         client.close()
         exit()
 
+def on_closing(event=None):
+    """This function is to be called when the window is closed."""
+    sent_msg.set("{quit}")
+    send()
+
+top = tkinter.Tk()
+top.title("Chat")
+
+frame = tkinter.Frame(top)
+frame.pack()
+sent_msg = tkinter.StringVar()  # For the messages to be sent.
+sent_msg.set("Type your messages here.")
+input_field = tkinter.Entry(top, textvariable=sent_msg)
+input_field.bind("<Return>", send)
+input_field.pack()
+sendButton = tkinter.Button(top, text='Enviar', command=send)
+sendButton.pack()
+
+
+top.protocol("WM_DELETE_WINDOW", on_closing)
+
+
+
 
 HOST = input('Enter host: ')
 PORT = input('Enter port: ')
 if not PORT:
-    PORT = 33000
+    PORT = 33001
 else:
     PORT = int(PORT)
 
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 
-contador = 0
 
 client = socket(AF_INET, SOCK_STREAM)
 client.connect(ADDR)
 
 receive_thread = Thread(target=receive)
 receive_thread.start()
-
-while True:
-    send()
+tkinter.mainloop()
