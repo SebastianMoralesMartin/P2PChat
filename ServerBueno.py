@@ -16,10 +16,10 @@ def encryptMsg(msg):
 def accept_incoming_connections():
     while True:
         client, client_address = SERVER.accept()
-        connected = client_address + ' se ha conectado.'
+        connected = str(client_address) + ' se ha conectado.'
         connected = encryptMsg(connected)
         print(connected)
-        typeName = "Ingresa tu Nickname y hax click en Enviar"
+        typeName = "Ingresa tu Nickname y haz click en Enviar"
         typeName = encryptMsg(typeName)
         client.send(bytes(typeName, "utf8"))
         addresses[client] = client_address
@@ -64,6 +64,7 @@ ADDR = (HOST, PORT)
 
 SERVER = socket(AF_INET, SOCK_STREAM)
 SERVER.bind(ADDR)
+
 
 if __name__ == "__main__":
     SERVER.listen(10)

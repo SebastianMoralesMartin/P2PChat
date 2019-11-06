@@ -53,7 +53,6 @@ frame.pack()
 sent_msg = tkinter.StringVar()  # For the messages to be sent.
 sent_msg.set("")
 input_field = tkinter.Entry(top, textvariable=sent_msg)
-input_field.bind("<Return>", send)
 input_field.pack()
 sendButton = tkinter.Button(top, text='Enviar', command=send)
 sendButton.pack()
