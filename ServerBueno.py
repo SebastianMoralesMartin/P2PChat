@@ -16,7 +16,7 @@ def encryptMsg(msg):
 def accept_incoming_connections():
     while True:
         client, client_address = SERVER.accept()
-        connected = ("%s:%s has connected." % client_address)
+        connected = client_address + ' has connected'
         connected = encryptMsg(connected)
         print(connected)
         typeName = "Type your name and press enter"
