@@ -16,10 +16,10 @@ def encryptMsg(msg):
 def accept_incoming_connections():
     while True:
         client, client_address = SERVER.accept()
-        connected = client_address + ' has connected'
+        connected = client_address + ' se ha conectado. :-)'
         connected = encryptMsg(connected)
         print(connected)
-        typeName = "Type your name and press enter"
+        typeName = "Ingresa tu Nickname y hax click en Enviar"
         typeName = encryptMsg(typeName)
         client.send(bytes(typeName, "utf8"))
         addresses[client] = client_address
@@ -27,10 +27,10 @@ def accept_incoming_connections():
 
 def handle_client(client):
     name = client.recv(BUFSIZ).decode("utf8")
-    welcome = 'Welcome! If you ever want to quit, type {quit} to exit.'
+    welcome = 'Bienvenido! Cuando desees desconectarte, teclea {quit} para salir.'
     welcome = encryptMsg(welcome)
     client.send(bytes(welcome, "utf8"))
-    msg = "%s has joined the chat!" % name
+    msg = "%s se unio al chat! :-)" % name
     msg = encryptMsg(msg)
     broadcast(bytes(msg, "utf8"))
     clients[client] = name
@@ -45,7 +45,7 @@ def handle_client(client):
             client.send(bytes("{quit}", "utf8"))
             client.close()
             del clients[client]
-            broadcast(bytes("%s has left the chat." % name, "utf8"))
+            broadcast(bytes("%s ha salido del chat. :-(" % name, "utf8"))
             break
 
 
@@ -67,7 +67,7 @@ SERVER.bind(ADDR)
 
 if __name__ == "__main__":
     SERVER.listen(10)
-    print("Waiting for connection...")
+    print("Esperando conexiones con clientes...")
     ACCEPT_THREAD = Thread(target=accept_incoming_connections)
     ACCEPT_THREAD.start()
     ACCEPT_THREAD.join()
