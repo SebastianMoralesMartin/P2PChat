@@ -59,7 +59,7 @@ def broadcast(msg, prefix=""):
 clients = {}
 addresses = {}
 
-HOST = '10.48.102.143'
+HOST = input('direccion del host')
 PORT = 33001
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
@@ -68,7 +68,7 @@ SERVER = socket(AF_INET, SOCK_STREAM)
 SERVER.bind(ADDR)
 
 if __name__ == "__main__":
-    SERVER.listen(5)
+    SERVER.listen(10)
     print("Waiting for connection...")
     ACCEPT_THREAD = Thread(target=accept_incoming_connections)
     ACCEPT_THREAD.start()
