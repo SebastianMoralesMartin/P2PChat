@@ -7,7 +7,7 @@ def receive():
         try:
             msg = client.recv(BUFSIZ).decode("utf8")
             desencryptedMsg = encryptMsg(msg)
-            print(desencryptedMsg)
+            print(desencryptedMsg + "\n")
         except OSError:
             break
 

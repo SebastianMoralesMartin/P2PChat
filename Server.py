@@ -8,12 +8,16 @@ serv.bind(('0.0.0.0', 8080))
 serv.listen(2)
 while True:
     conn, addr = serv.accept()
+    conn2, addr2 = serv.accept()
+    from_client2 = []
     from_client1 = []
     while True:
         data = conn.recv(4096)
+        data2 = conn2.recv(4096)
         if not data:
             break
         from_client1.append(str(data))
+        from_client2.append(str(data))
         print(conn.getsockname() ,from_client1[-1])
         conn.sendall(bytes("I am SERVER\n", 'utf-8'))
     conn.close()
