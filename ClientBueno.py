@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""Script for Tkinter GUI chat client."""
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 
 def receive():
     while True:
         try:
-            msg = client_socket.recv(BUFSIZ).decode("utf8")
+            msg = client.recv(BUFSIZ).decode("utf8")
             desencryptedMsg = encryptMsg(msg)
             print(desencryptedMsg)
-        except OSError:  # Possibly client has left the chat.
+        except OSError:
             break
 
 
@@ -30,9 +29,9 @@ def send():
 
     criptedMsg = encryptMsg(msg)
 
-    client_socket.send(bytes(criptedMsg, "utf8"))
+    client.send(bytes(criptedMsg, "utf8"))
     if msg == "{quit}":
-        client_socket.close()
+        client.close()
         exit()
 
 
@@ -48,8 +47,8 @@ ADDR = (HOST, PORT)
 
 contador = 0
 
-client_socket = socket(AF_INET, SOCK_STREAM)
-client_socket.connect(ADDR)
+client = socket(AF_INET, SOCK_STREAM)
+client.connect(ADDR)
 
 receive_thread = Thread(target=receive)
 receive_thread.start()
